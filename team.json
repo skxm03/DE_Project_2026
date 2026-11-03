@@ -1,0 +1,27 @@
+{
+	"team_number": "T0110",
+	"section": "D",
+	"group_lead": {
+		"name": "Saksham Saini",
+		"enrollment_no": "2501010397",
+		"github": "skxm03"
+	},
+	"members": [
+		{
+			"name": "Nimit Sharma",
+			"enrollment_no": "2501010306",
+			"github": "ABUDIYAAAA"
+		},
+		{
+			"name": "Arpit Tripathi",
+			"enrollment_no": "2501010085",
+			"github": "arpittripathi755"
+		},
+		{
+			"name": "Gurmehar Singh",
+			"enrollment_no": "2501010171",
+			"github": "Gurmehar-git"
+		}
+	],
+	"repository_url": "https://github.com/skxm03/DE_Project_2026"
+}
