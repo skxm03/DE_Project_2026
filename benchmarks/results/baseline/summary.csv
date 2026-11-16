@@ -1,0 +1,31 @@
+query_id,type,avg_ms,median_ms,min_ms,max_ms,scan_nodes
+R01,READ,3.552,3.433,3.285,3.939,Seq Scan on places
+R02,READ,0.039,0.039,0.039,0.040,Index Scan using places_pkey on places | Index Scan using opening_hours_pkey on opening_hours
+R03,READ,13.790,13.749,13.606,14.014,Seq Scan on places
+R04,READ,9.423,9.076,8.518,10.674,Seq Scan on opening_hours | Seq Scan on places
+R05,READ,0.140,0.140,0.137,0.144,Bitmap Heap Scan on place_reviews | Bitmap Index Scan on place_reviews_place_id_user_id_key | Index Scan using users_pkey on users
+R06,READ,0.186,0.070,0.059,0.429,Index Scan using saved_places_pkey on saved_places | Index Scan using places_pkey on places
+R07,READ,3.839,3.757,3.575,4.186,Index Scan using road_segments_pkey on road_segments | Bitmap Heap Scan on traffic_readings | Bitmap Index Scan on traffic_readings_segment_id_recorded_at_key
+R08,READ,0.366,0.366,0.356,0.375,Seq Scan on road_segments | Index Scan using traffic_readings_segment_id_recorded_at_key on traffic_readings
+R09,READ,0.349,0.231,0.225,0.591,Bitmap Heap Scan on traffic_readings | Bitmap Index Scan on traffic_readings_segment_id_recorded_at_key
+R10,READ,0.817,0.809,0.763,0.878,Seq Scan on incident_reports | Seq Scan on road_segments
+R11,READ,22.311,22.304,22.295,22.335,Seq Scan on navigation_sessions
+R12,READ,10.303,10.225,10.147,10.536,Seq Scan on navigation_sessions | Seq Scan on places
+R13,READ,20.214,20.315,19.617,20.711,Seq Scan on places | Seq Scan on navigation_sessions
+R14,READ,9.443,9.225,9.159,9.945,Seq Scan on place_reviews | Seq Scan on users
+R15,READ,30.522,30.613,30.306,30.647,Seq Scan on place_reviews | Seq Scan on places
+R16,READ,13.298,13.357,13.041,13.496,Seq Scan on navigation_sessions | Seq Scan on places
+R17,READ,32.798,32.576,32.357,33.461,Seq Scan on navigation_sessions
+R18,READ,14.681,14.850,14.155,15.037,Seq Scan on navigation_sessions
+R19,READ,13620.371,13536.062,13512.909,13812.141,Seq Scan on place_categories | Seq Scan on places | Seq Scan on navigation_sessions
+R20,READ,10.185,10.266,9.843,10.445,Seq Scan on navigation_sessions
+R21,READ,21.130,21.151,21.000,21.239,Seq Scan on opening_hours | Seq Scan on places | Seq Scan on place_categories
+R22,READ,16.636,16.598,16.580,16.730,Seq Scan on place_reviews
+R23,READ,0.024,0.023,0.023,0.026,Index Scan using places_plus_code_key on places
+R24,READ,4.815,4.730,4.700,5.015,Seq Scan on places
+R25,READ,27.972,27.721,27.687,28.509,Seq Scan on traffic_readings | Seq Scan on road_segments
+W01,WRITE,0.698,0.592,0.510,0.992,(no scan)
+W02,WRITE,0.554,0.573,0.489,0.599,(no scan)
+W03,WRITE,0.583,0.588,0.554,0.607,(no scan)
+W04,WRITE,33.727,34.322,32.183,34.676,Seq Scan on places | Seq Scan on place_reviews
+W05,WRITE,2.161,2.166,2.073,2.244,Seq Scan on incident_reports
