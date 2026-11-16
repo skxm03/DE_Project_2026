@@ -14,7 +14,7 @@
 | `benchmarks/run_benchmark.sh` | Timing script: 3 runs per query, average, raw plans saved                                            |
 | `CHECKPOINTS.md`              | Checkpoint dates and the files each one needs (DE and AP repos)                                      |
 
-**Getting started:** **clone this repository and push it into your team's DE repo** (the DE repo you submitted in the form); the steps are in [`CHECKPOINTS.md`](CHECKPOINTS.md). Keep the structure shown in [Repository structure](#repository-structure-submit-exactly-this). Unzip `seed_data.zip` inside your project folder, but don't commit the CSV files. Deadlines are in [`CHECKPOINTS.md`](CHECKPOINTS.md). Then begin with Phase 1.
+**Getting started:** Start by cloning this repository and pushing its contents to your team's DE repository (the one submitted through the form). Refer to [`CHECKPOINTS.md`](CHECKPOINTS.md) for setup instructions. Make sure your repository follows the structure outlined in [Repository Structure](#repository-structure-submit-exactly-this). Extract `seed_data.zip` into your project directory, but do not commit the CSV files. Once the setup is complete, check the deadlines in [`CHECKPOINTS.md`](CHECKPOINTS.md) and proceed with Phase 1.
 
 ---
 
@@ -352,7 +352,7 @@ By **Thu 19 Nov 2026**, faculty will release **`large_data.zip`**: the same 11 C
 
 1. Create a new database. Run **your** `01_schema.sql`, load `large_data/` with your load script (change the folder name only), then run **your** `05_indexes.sql` and `ANALYZE`.
 2. Run your **optimized** queries (`sql/06_optimized_queries.sql`). **Do not run the original 30 on the large data.** Some of them could run for a very long time.
-    - R22 pages with `OFFSET`; if you replaced it with keyset pagination, explain how the "last seen" value is chosen for the large data.
+   - R22 pages with `OFFSET`; if you replaced it with keyset pagination, explain how the "last seen" value is chosen for the large data.
 3. Record the times and compare with your Phase 4 results on the seed data.
 
 | Query      | Optimized on seed (ms) | Optimized on large (ms) | Growth (large ÷ seed) | Meets target? | If not, what you changed |
@@ -375,16 +375,16 @@ If a query misses its target, **find out why from the plan and fix it.** A query
 
 1. **Results table** (above), with every target met or explained.
 2. **Growth analysis.** Group your queries by how their time grew when the data grew 20×:
-    - _stayed about the same_ (why? e.g. index lookups grow with log n)
-    - _grew about 20×_ (why? e.g. they read a fixed _share_ of the table)
-    - _grew more than 20×_ (why, and what you did about it)
+   - _stayed about the same_ (why? e.g. index lookups grow with log n)
+   - _grew about 20×_ (why? e.g. they read a fixed _share_ of the table)
+   - _grew more than 20×_ (why, and what you did about it)
 3. **What broke at scale** and how you fixed it (plans before/after).
 4. **Storage:** total database size, table vs index size, on seed and large data.
 5. **Architecture for 100×:** explain with numbers from your own measurements:
-    - **Partitioning:** which table, by which column (RANGE / LIST / HASH), and why. Write the DDL for `navigation_sessions`, show partition pruning with `EXPLAIN`, and note the primary-key rule for partitioned tables.
-    - **Sharding:** Would you shard by city/region (geography), by user, or by time? Think about "near me" searches and live traffic (local) vs a user's history (global). Which queries become cross-shard, and how would you handle them?
-    - **Read replicas and caching:** which of the 30 queries you would send to a replica or cache, and which must hit the primary.
-    - **Maintenance:** VACUUM/autovacuum settings for `navigation_sessions`, archiving old data, refreshing summary tables.
+   - **Partitioning:** which table, by which column (RANGE / LIST / HASH), and why. Write the DDL for `navigation_sessions`, show partition pruning with `EXPLAIN`, and note the primary-key rule for partitioned tables.
+   - **Sharding:** Would you shard by city/region (geography), by user, or by time? Think about "near me" searches and live traffic (local) vs a user's history (global). Which queries become cross-shard, and how would you handle them?
+   - **Read replicas and caching:** which of the 30 queries you would send to a replica or cache, and which must hit the primary.
+   - **Maintenance:** VACUUM/autovacuum settings for `navigation_sessions`, archiving old data, refreshing summary tables.
 6. **Conclusion:** is your database ready for next year? What are the remaining risks?
 
 ---
@@ -423,15 +423,15 @@ googlemaps-dbms-<team-no>/
 
 ```json
 {
-	"team_number": "",
-	"group_lead": { "name": "", "enrollment_no": "", "github": "" },
-	"members": [
-		{ "name": "", "enrollment_no": "", "github": "" },
-		{ "name": "", "enrollment_no": "", "github": "" },
-		{ "name": "", "enrollment_no": "", "github": "" }
-	],
-	"postgres_version": "",
-	"laptop_used_for_benchmarks": ""
+  "team_number": "",
+  "group_lead": { "name": "", "enrollment_no": "", "github": "" },
+  "members": [
+    { "name": "", "enrollment_no": "", "github": "" },
+    { "name": "", "enrollment_no": "", "github": "" },
+    { "name": "", "enrollment_no": "", "github": "" }
+  ],
+  "postgres_version": "",
+  "laptop_used_for_benchmarks": ""
 }
 ```
 
