@@ -1,5 +1,7 @@
 # Google Maps Navigation Database — schema design
 
+[ER diagram](#entity-relationship-diagram) · [Normalization](#functional-dependencies-and-normal-forms) · [Data dictionary](#data-dictionary) · [Seed checks](#seed-verification)
+
 ## Scope and design choices
 
 The `gmaps` schema keeps the 11 CSV table names and every header in the supplied order. City and category details are stored once and referenced by ID. Reviews and saves link users to places; road segments own traffic readings and incident reports; navigation sessions link a required destination to an optional user and origin listing. Session GPS coordinates are required whether or not an origin listing exists.
@@ -18,11 +20,22 @@ Hours use ISO weekdays (Monday = 1). A missing hours row means no schedule was s
 
 Phone, website and price level can be absent; the export supplies prices only for restaurant listings. Phone values happen to be unique among populated seed rows, but businesses can share a contact number, so it is not a candidate key. Plus Code is unique within this dataset; the format check does not assert that it geocodes to the stored coordinates. A non-guide has no guide level. A navigation user can be anonymous, an origin can come from GPS alone, and only completed trips have an actual duration. Missing information stays NULL.
 
-`CASCADE` applies to dependent facts such as a listing's hours and a segment's readings. `RESTRICT` protects required references where history or attribution would be lost, such as a session's destination and an incident's reporter. `SET NULL` preserves rows with an optional reference, such as a session's user or origin place, after the parent is removed. Permanent closures normally retain the listing and its history.
+| Delete rule | When it applies | Examples |
+|---|---|---|
+| `CASCADE` | The child row depends on its parent. | A listing's hours; a segment's readings |
+| `RESTRICT` | Deleting the parent would remove required history or attribution. | A session's destination; an incident's reporter |
+| `SET NULL` | The child can be retained without its optional reference. | A session's user or origin place |
+
+Permanent closures normally retain the listing and its history.
 
 ## Entity relationship diagram
 
 Each connector is one parent to zero or many children; a circle at the parent end means the reference is optional for that child. Reviews and saves each resolve a many-to-many relationship between users and places. The two links from places to navigation sessions represent different roles. There is no required one-to-one relationship. The dictionary below gives the exact composite key definitions.
+
+[Open the full-size ER diagram](../diagrams/er_diagram.png).
+
+<details>
+<summary>Rendered Mermaid diagram and field names</summary>
 
 ```mermaid
 erDiagram
@@ -142,6 +155,8 @@ erDiagram
     road_segments ||..o{ incident_reports : "segment_id"
     users ||..o{ incident_reports : "user_id"
 ```
+
+</details>
 
 ## Functional dependencies and normal forms
 

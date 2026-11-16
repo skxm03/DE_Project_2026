@@ -2,7 +2,11 @@
 
 The course benchmark helper ran the original 30-query workload on PostgreSQL 18.4 (Postgres.app, Apple Silicon) against all 936,328 seed rows. The database used only the 17 indexes created by CP1 primary and unique constraints. The session time zone was `Asia/Kolkata`. Each statement ran three times with `EXPLAIN (ANALYZE, BUFFERS)`; each write was rolled back separately.
 
-Times are PostgreSQL's reported execution times, in milliseconds. The summary and raw plans are in `benchmarks/results/baseline/`.
+Times are PostgreSQL's reported execution times, in milliseconds. See the [benchmark summary table](../benchmarks/results/baseline/summary.md) for the median, range and scan nodes, or the [source CSV](../benchmarks/results/baseline/summary.csv).
+
+**Slowest query:** R19 averaged 13,620.371 ms. R19 evaluates two correlated aggregates per hospital, repeatedly scanning navigation sessions. The baseline also keeps R13 as supplied, including its NULL-sensitive `NOT IN` behavior. Both are candidates for CP3.
+
+## All 30 timings
 
 | Query | Type | Run 1 (ms) | Run 2 (ms) | Run 3 (ms) | Average (ms) |
 |---|---|---:|---:|---:|---:|
@@ -36,5 +40,3 @@ Times are PostgreSQL's reported execution times, in milliseconds. The summary an
 | W03 | WRITE | 0.554 | 0.607 | 0.588 | 0.583 |
 | W04 | WRITE | 32.183 | 34.676 | 34.322 | 33.727 |
 | W05 | WRITE | 2.073 | 2.244 | 2.166 | 2.161 |
-
-**Slowest query:** R19 averaged 13,620.371 ms. R19 evaluates two correlated aggregates per hospital, repeatedly scanning navigation sessions. The baseline also keeps R13 as supplied, including its NULL-sensitive `NOT IN` behavior. Both are candidates for CP3.
