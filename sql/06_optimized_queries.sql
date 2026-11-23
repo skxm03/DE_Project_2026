@@ -134,9 +134,8 @@ LIMIT 10;
 -- @R13
 SELECT p.place_id, p.name
 FROM places p
-WHERE NOT EXISTS (
- SELECT 1 FROM navigation_sessions n
- WHERE n.origin_place_id = p.place_id AND n.origin_place_id IS NOT NULL
+WHERE p.place_id NOT IN (
+ SELECT n.origin_place_id FROM navigation_sessions n WHERE n.origin_place_id IS NOT NULL
 );
 
 -- @R14
